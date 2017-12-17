@@ -1,7 +1,7 @@
 '''
 Copy Right by likuku
 likuku.public@gmail.com
-last update on Dec17,2017
+last update on Dec18,2017
 先决条件:
 安装 ffmpeg-static, 路径加入当前用户 PATH 环境变量里
 安装 python3
@@ -11,7 +11,6 @@ import sys
 import os
 import subprocess
 import time
-
 
 print('需要 FFmpeg v3.3.x 和 Python v3.x :')
 
@@ -42,16 +41,15 @@ def get_str_list_src_images(_str_dir_path):
 
 def make_str_list_cmd_resize_images(_path,_dir,_src_image,_out_w,_out_h):
     ''' _dir is: full or thumbnail '''
-    #_out_w = str(_out_w)
-    #_out_h = str(_out_h)
-    #print(type(_out_w))
     _str_list = []
     _str_src_path = os.path.join(_path,_src_image)
     _str_output_path = os.path.join(_path,_dir,_src_image)
-    _str_vf = 'scale=w=%s:h=%s:force_original_aspect_ratio=decrease,pad=x=(ow-iw)/2:y=(oh-ih)/2:w=%s:h=%s' % (_out_w,_out_h,_out_w,_out_h)
-    _str_list = ['ffmpeg','-i',_str_src_path,'-pix_fmt','yuvj420p','-vf',_str_vf,'-q:v','2',_str_output_path]
+    _str_vf = ('scale=w={_out_w}:h={_out_h}:force_original_aspect_ratio=decrease,'
+               'pad=x=(ow-iw)/2:y=(oh-ih)/2:w={_out_w}:h={_out_h}')
+    _str_vf= _str_vf.format_map(vars())
+    _str_list = ['ffmpeg','-y','-i',_str_src_path,'-pix_fmt','yuvj420p',
+                 '-vf',_str_vf,'-q:v','2',_str_output_path]
     return(_str_list)
-
 
 def main():
     _str_raw_path = get_str_raw_src_media_path_from_keyboard()
@@ -71,8 +69,14 @@ def main():
         pass
     for _src_image in _str_list_src_images:
         pass
-        _cmd_array_thumbnail = make_str_list_cmd_resize_images(_str_path,'thumbnail',_src_image,'300','300')
-        _cmd_array_full = make_str_list_cmd_resize_images(_str_path,'full',_src_image,'1920','1080')
+        _cmd_array_thumbnail = make_str_list_cmd_resize_images(_str_path,
+                                                               'thumbnail',
+                                                               _src_image,
+                                                               '300','300')
+        _cmd_array_full = make_str_list_cmd_resize_images(_str_path,
+                                                          'full',
+                                                          _src_image,
+                                                          '1920','1080')
         print(_cmd_array_thumbnail)
         print(_cmd_array_full)
         continue
