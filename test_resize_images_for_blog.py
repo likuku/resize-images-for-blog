@@ -3,29 +3,39 @@ from resize_images_for_blog import *
 import os
 
 def create_test_env():
-    print ('create_test_env:')
+    _dir = 'tmp'
     try:
-        os.mkdir('./tmp')
-        f = os.open('./tmp/1.jpg')
-        f.close()
-        f = os.open('./tmp/2.jpg')
-        f.close()
-        f = os.open('./tmp/3.jpg')
-        f.close()
+        os.mkdir(_dir)
+    except Exception as e:
+        pass
+    try:
+        for _file in ['1.jpg','2.jpg','3.jpg']:
+            _path = os.path.join(_dir,_file)
+            _f = os.open(_path,os.O_CREAT)
+            os.close(_f)
     except Exception as e:
         pass
 
 def clean_test_env():
+    _dir = 'tmp'
     try:
-        os.remove('./tmp/*')
+        for _file in ['1.jpg','2.jpg','3.jpg']:
+            _path = os.path.join(_dir,_file)
+            os.remove(_path)
     except Exception as e:
         pass
     try:
-        os.rmdir('./tmp')
+        os.rmdir('tmp')
     except Exception as e:
-        pass
+        raise
 
 class Test_resize_images_for_blog(unittest.TestCase):
+    def setUp(self):
+        create_test_env()
+
+    def tearDown(self):
+        clean_test_env()
+
     def test_check_str_raw_src_media_path(self):
         self.assertEqual(False,
                          check_str_raw_src_media_path(''))
@@ -46,7 +56,7 @@ class Test_resize_images_for_blog(unittest.TestCase):
 
     def test_get_str_list_src_images(self):
         self.assertEqual(['1.jpg','2.jpg','3.jpg'],
-             get_str_list_src_images('./tmp'))
+             get_str_list_src_images('tmp'))
 
     def make_str_list_cmd_resize_images(self):
         # make_str_list_cmd_resize_images(_path,_dir,_src_image,_out_w,_out_h)
@@ -66,6 +76,4 @@ class Test_resize_images_for_blog(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    #create_test_env()
     unittest.main()
-    #clean_test_env()
