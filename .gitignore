@@ -99,3 +99,9 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# index file of Spotlight on macOS
+.DS_Store
+# tmp file of vim
+.*~
+*~
