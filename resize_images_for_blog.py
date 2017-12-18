@@ -12,6 +12,7 @@ import os
 import subprocess
 import time
 
+print('版本: v1.0 20171218')
 print('需要 FFmpeg v3.3.x 和 Python v3.x :')
 
 def get_str_raw_src_media_path_from_keyboard():
@@ -80,7 +81,7 @@ def main():
                                                           '1920','1080')
         print(_cmd_array_thumbnail)
         print(_cmd_array_full)
-        continue
+        #continue
         subprocess.call(_cmd_array_thumbnail)
         subprocess.call(_cmd_array_full)
 
