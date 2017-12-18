@@ -49,7 +49,7 @@ def make_str_list_cmd_resize_images(_path,_dir,_src_image,_out_w,_out_h):
     _str_vf = ('scale=w={_out_w}:h={_out_h}:force_original_aspect_ratio=decrease,'
                'pad=x=(ow-iw)/2:y=(oh-ih)/2:w={_out_w}:h={_out_h}')
     _str_vf= _str_vf.format_map(vars())
-    _str_list = ['ffmpeg','-y','-i',_str_src_path,'-pix_fmt','yuvj420p',
+    _str_list = ['ffmpeg','-i',_str_src_path,'-pix_fmt','yuvj420p',
                  '-vf',_str_vf,'-q:v','2',_str_output_path]
     return(_str_list)
 
@@ -68,6 +68,11 @@ def main():
         time.sleep(2)
         exit()
     else:
+        pass
+    try:
+        os.mkdir(os.path.join(_str_path,'thumbnail'))
+        os.mkdir(os.path.join(_str_path,'full'))
+    except Exception as e:
         pass
     for _src_image in _str_list_src_images:
         pass
