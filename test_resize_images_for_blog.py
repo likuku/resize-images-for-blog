@@ -40,9 +40,13 @@ class Test_resize_images_for_blog(unittest.TestCase):
         self.assertEqual(False,
                          check_str_raw_src_media_path(''))
         self.assertEqual(False,
-                         check_str_raw_src_media_path('.13123241'))
+                         check_str_raw_src_media_path('3.13123241'))
         self.assertEqual(True,
                          check_str_raw_src_media_path('tmp'))
+        self.assertEqual(True,
+                         check_str_raw_src_media_path('tmp '))
+        self.assertEqual(True,
+                         check_str_raw_src_media_path('"tmp "'))
 
     def test_rebuild_str_src_media_path(self):
         self.assertEqual('/path/subPath',
@@ -53,6 +57,8 @@ class Test_resize_images_for_blog(unittest.TestCase):
              rebuild_str_src_media_path('/path/subPath '))
         self.assertEqual('/path/sub\ Path',
              rebuild_str_src_media_path('/path/sub\ Path '))
+        self.assertEqual('/path/sub\ Path',
+             rebuild_str_src_media_path('"/path/sub\ Path "'))
 
     def test_get_str_list_src_images(self):
         self.assertEqual(['1.jpg','2.jpg','3.jpg'],
