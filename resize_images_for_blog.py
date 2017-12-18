@@ -12,7 +12,7 @@ import os
 import subprocess
 import time
 
-print('版本: v1.0 20171218')
+print('版本: v1.0.1 20171218')
 print('需要 FFmpeg v3.3.x 和 Python v3.x :')
 
 def get_str_raw_src_media_path_from_keyboard():
