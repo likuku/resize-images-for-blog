@@ -67,7 +67,7 @@ class Test_resize_images_for_blog(unittest.TestCase):
     def test_make_str_list_cmd_resize_images(self):
         # make_str_list_cmd_resize_images(_path,_dir,_src_image,_out_w,_out_h)
         _path = '/path/subPath'
-        _dir = 'full'
+        _dir = 'fulls'
         _src_image = '1.jpg'
         _out_w = '1920'
         _out_h = '1080'

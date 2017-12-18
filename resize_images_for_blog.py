@@ -12,7 +12,7 @@ import os
 import subprocess
 import time
 
-print('版本: v1.0.1 20171218')
+print('版本: v1.0.2 20171218')
 print('需要 FFmpeg v3.3.x 和 Python v3.x :')
 
 def get_str_raw_src_media_path_from_keyboard():
@@ -62,7 +62,6 @@ def main():
         time.sleep(2)
         exit()
     _str_list_src_images = get_str_list_src_images(_str_path)
-    print(_str_list_src_images)
     if len(_str_list_src_images) <= 0:
         print('目录无素材，检查修正后再次运行')
         time.sleep(2)
@@ -70,25 +69,25 @@ def main():
     else:
         pass
     try:
-        os.mkdir(os.path.join(_str_path,'thumbnail'))
-        os.mkdir(os.path.join(_str_path,'full'))
+        os.mkdir(os.path.join(_str_path,'thumbs'))
+        os.mkdir(os.path.join(_str_path,'fulls'))
     except Exception as e:
         pass
     for _src_image in _str_list_src_images:
-        pass
-        _cmd_array_thumbnail = make_str_list_cmd_resize_images(_str_path,
-                                                               'thumbnail',
+        # 1200x750 is full_size,360x225 is thumbnail_size, in demo
+        _cmd_array_thumbs = make_str_list_cmd_resize_images(_str_path,
+                                                               'thumbs',
                                                                _src_image,
-                                                               '300','300')
-        _cmd_array_full = make_str_list_cmd_resize_images(_str_path,
-                                                          'full',
+                                                               '360','360')
+        _cmd_array_fulls = make_str_list_cmd_resize_images(_str_path,
+                                                          'fulls',
                                                           _src_image,
-                                                          '1920','1080')
-        print(_cmd_array_thumbnail)
-        print(_cmd_array_full)
+                                                          '1200','750')
+        print(_cmd_array_thumbs)
+        print(_cmd_array_fulls)
         #continue
-        subprocess.call(_cmd_array_thumbnail)
-        subprocess.call(_cmd_array_full)
+        subprocess.call(_cmd_array_thumbs)
+        subprocess.call(_cmd_array_fulls)
 
 
 if __name__ == '__main__':
