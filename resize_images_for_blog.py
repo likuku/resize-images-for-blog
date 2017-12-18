@@ -20,10 +20,11 @@ def get_str_raw_src_media_path_from_keyboard():
     return(_str_raw_input)
 
 def check_str_raw_src_media_path(_str_input):
-    if _str_input == 0:
+    if len(_str_input) == 0:
         _bool_src_media_path = False
     else:
-        _bool_src_media_path = os.access(_str_input,os.F_OK)
+        _bool_src_media_path = os.access(_str_input.replace('"','').strip(),
+                                         os.F_OK)
     return(_bool_src_media_path)
 
 def rebuild_str_src_media_path(_str_input):
