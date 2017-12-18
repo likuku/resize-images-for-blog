@@ -77,7 +77,6 @@ class Test_resize_images_for_blog(unittest.TestCase):
                    'pad=x=(ow-iw)/2:y=(oh-ih)/2:w={_out_w}:h={_out_h}')
         _str_vf= _str_vf.format_map(vars())
         self.assertEqual(['ffmpeg',
-                          '-y',
                           '-i',_str_src_path,
                           '-pix_fmt','yuvj420p',
                           '-vf',_str_vf,
