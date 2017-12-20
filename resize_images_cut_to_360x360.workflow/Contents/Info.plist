@@ -3,6 +3,6 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleName</key>
-	<string>resize_cut_images_to_360x360</string>
+	<string>resize_images_cut_to_360x360</string>
 </dict>
 </plist>

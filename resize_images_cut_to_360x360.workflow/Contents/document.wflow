@@ -51,7 +51,9 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>fileNames</key>
-					<array/>
+					<array>
+						<string>~/Desktop/6x6/DSCF2118.JPG</string>
+					</array>
 				</dict>
 				<key>BundleIdentifier</key>
 				<string>com.apple.Automator.SpecifiedFiles</string>
@@ -232,7 +234,7 @@
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>440.000000:422.000000</string>
+				<string>440.000000:370.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/New Folder.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
@@ -332,7 +334,7 @@
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>440.000000:522.000000</string>
+				<string>440.000000:470.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Get Folder Contents.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
@@ -518,9 +520,106 @@
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>440.000000:725.000000</string>
+				<string>440.000000:673.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Crop Images.action/Contents/Resources/Base.lproj/main.nib</string>
+			</dict>
+			<key>isViewVisible</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>action</key>
+			<dict>
+				<key>AMAccepts</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Optional</key>
+					<false/>
+					<key>Types</key>
+					<array>
+						<string>com.apple.applescript.alias-object.image</string>
+					</array>
+				</dict>
+				<key>AMActionVersion</key>
+				<string>1.10.0</string>
+				<key>AMApplication</key>
+				<array>
+					<string>预览</string>
+				</array>
+				<key>AMParameterProperties</key>
+				<dict>
+					<key>ConvType</key>
+					<dict/>
+					<key>ProfilePath</key>
+					<dict/>
+					<key>temporary items path</key>
+					<dict/>
+				</dict>
+				<key>AMProvides</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Types</key>
+					<array>
+						<string>com.apple.applescript.alias-object.image</string>
+					</array>
+				</dict>
+				<key>AMRequiredResources</key>
+				<array/>
+				<key>ActionBundlePath</key>
+				<string>/System/Library/Automator/Apply ColorSync Profile to Images.action</string>
+				<key>ActionName</key>
+				<string>将 ColorSync 描述文件应用到图像</string>
+				<key>ActionParameters</key>
+				<dict>
+					<key>ConvType</key>
+					<integer>0</integer>
+					<key>ProfilePath</key>
+					<string>/System/Library/ColorSync/Profiles/sRGB%20Profile.icc</string>
+				</dict>
+				<key>BundleIdentifier</key>
+				<string>com.apple.action.colorsyncprofiles</string>
+				<key>CFBundleVersion</key>
+				<string>1.10.0</string>
+				<key>CanShowSelectedItemsWhenRun</key>
+				<false/>
+				<key>CanShowWhenRun</key>
+				<true/>
+				<key>Category</key>
+				<array>
+					<string>AMCategoryPhotos</string>
+				</array>
+				<key>Class Name</key>
+				<string>ColorSyncProfiles</string>
+				<key>InputUUID</key>
+				<string>50CDE85D-D21C-47B2-88C6-CC50ADF5CED6</string>
+				<key>Keywords</key>
+				<array>
+					<string>图像</string>
+					<string>照片</string>
+					<string>更改</string>
+				</array>
+				<key>OutputUUID</key>
+				<string>070005C9-E068-4C38-9882-95C135AD46F7</string>
+				<key>StartAction</key>
+				<false/>
+				<key>UUID</key>
+				<string>FB870A53-5193-46B6-95D9-EFB234BB597D</string>
+				<key>UnlocalizedApplications</key>
+				<array>
+					<string>Preview</string>
+				</array>
+				<key>arguments</key>
+				<dict/>
+				<key>conversionLabel</key>
+				<integer>0</integer>
+				<key>isViewVisible</key>
+				<true/>
+				<key>location</key>
+				<string>440.000000:1101.000000</string>
+				<key>nibPath</key>
+				<string>/System/Library/Automator/Apply ColorSync Profile to Images.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
 			<key>isViewVisible</key>
 			<true/>
@@ -695,7 +794,7 @@
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>440.000000:895.000000</string>
+				<string>440.000000:1271.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Open Finder Items.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
@@ -705,38 +804,45 @@
 	</array>
 	<key>connectors</key>
 	<dict>
-		<key>47F080C1-A0E7-447A-82FB-3D64DBD1CA12</key>
+		<key>28B075A7-D17D-4788-8C7E-4F811C1DBFA4</key>
+		<dict>
+			<key>from</key>
+			<string>DF0F845F-1B9A-4517-AFFF-061436D3BF20 - DF0F845F-1B9A-4517-AFFF-061436D3BF20</string>
+			<key>to</key>
+			<string>655FF99D-9107-4763-9262-8824F5350463 - 655FF99D-9107-4763-9262-8824F5350463</string>
+		</dict>
+		<key>3C12076C-8924-4961-9FAC-4341EF78322A</key>
 		<dict>
 			<key>from</key>
 			<string>E9289C71-471E-481D-AD18-F1FF62EFE9DA - E9289C71-471E-481D-AD18-F1FF62EFE9DA</string>
 			<key>to</key>
 			<string>B1A00A93-E395-4A6F-8443-F79B410D8C6E - B1A00A93-E395-4A6F-8443-F79B410D8C6E</string>
 		</dict>
-		<key>4AFB7F7C-D1B8-401A-AC68-4971ECB73DC9</key>
+		<key>6D0C06D5-71FF-41D6-B825-844119907C69</key>
+		<dict>
+			<key>from</key>
+			<string>AAC7C4BE-289F-499E-8BF1-2A7AFB9944DD - AAC7C4BE-289F-499E-8BF1-2A7AFB9944DD</string>
+			<key>to</key>
+			<string>FB870A53-5193-46B6-95D9-EFB234BB597D - FB870A53-5193-46B6-95D9-EFB234BB597D</string>
+		</dict>
+		<key>A71D8907-E525-4481-B5ED-AC47D20214E8</key>
 		<dict>
 			<key>from</key>
 			<string>18B408C5-1288-4D7D-B28D-21B2A37B9408 - 18B408C5-1288-4D7D-B28D-21B2A37B9408</string>
 			<key>to</key>
 			<string>DF0F845F-1B9A-4517-AFFF-061436D3BF20 - DF0F845F-1B9A-4517-AFFF-061436D3BF20</string>
 		</dict>
-		<key>7E4C63CD-D4EA-478D-AA53-77F36ADE4756</key>
+		<key>AA372B3B-A9FB-415A-B673-26BEA52A2714</key>
 		<dict>
 			<key>from</key>
 			<string>655FF99D-9107-4763-9262-8824F5350463 - 655FF99D-9107-4763-9262-8824F5350463</string>
 			<key>to</key>
 			<string>AAC7C4BE-289F-499E-8BF1-2A7AFB9944DD - AAC7C4BE-289F-499E-8BF1-2A7AFB9944DD</string>
 		</dict>
-		<key>C3B7513F-7804-4290-A2B4-4AB0AF89626B</key>
+		<key>F76E1030-81B4-46B0-BBF9-2C182100EB24</key>
 		<dict>
 			<key>from</key>
-			<string>DF0F845F-1B9A-4517-AFFF-061436D3BF20 - DF0F845F-1B9A-4517-AFFF-061436D3BF20</string>
-			<key>to</key>
-			<string>655FF99D-9107-4763-9262-8824F5350463 - 655FF99D-9107-4763-9262-8824F5350463</string>
-		</dict>
-		<key>FDBB3154-13F0-435B-B270-B1A6384E66BE</key>
-		<dict>
-			<key>from</key>
-			<string>AAC7C4BE-289F-499E-8BF1-2A7AFB9944DD - AAC7C4BE-289F-499E-8BF1-2A7AFB9944DD</string>
+			<string>FB870A53-5193-46B6-95D9-EFB234BB597D - FB870A53-5193-46B6-95D9-EFB234BB597D</string>
 			<key>to</key>
 			<string>E9289C71-471E-481D-AD18-F1FF62EFE9DA - E9289C71-471E-481D-AD18-F1FF62EFE9DA</string>
 		</dict>
