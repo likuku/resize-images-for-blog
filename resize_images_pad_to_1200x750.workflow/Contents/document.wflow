@@ -51,9 +51,7 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>fileNames</key>
-					<array>
-						<string>~/Desktop/6x6/DSCF2118.JPG</string>
-					</array>
+					<array/>
 				</dict>
 				<key>BundleIdentifier</key>
 				<string>com.apple.Automator.SpecifiedFiles</string>
@@ -497,7 +495,12 @@
 					<string>预览</string>
 				</array>
 				<key>AMParameterProperties</key>
-				<dict/>
+				<dict>
+					<key>ConvType</key>
+					<dict/>
+					<key>ProfilePath</key>
+					<dict/>
+				</dict>
 				<key>AMProvides</key>
 				<dict>
 					<key>Container</key>
@@ -552,8 +555,6 @@
 				</array>
 				<key>arguments</key>
 				<dict/>
-				<key>conversionLabel</key>
-				<integer>0</integer>
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
@@ -637,154 +638,43 @@
 				<dict/>
 			</dict>
 		</dict>
-		<dict>
-			<key>action</key>
-			<dict>
-				<key>AMAccepts</key>
-				<dict>
-					<key>Container</key>
-					<string>List</string>
-					<key>Optional</key>
-					<false/>
-					<key>Types</key>
-					<array>
-						<string>com.apple.cocoa.path</string>
-					</array>
-				</dict>
-				<key>AMActionVersion</key>
-				<string>1.1.1</string>
-				<key>AMApplication</key>
-				<array>
-					<string>Finder</string>
-				</array>
-				<key>AMParameterProperties</key>
-				<dict>
-					<key>appPath</key>
-					<dict>
-						<key>isPathPopUp</key>
-						<true/>
-						<key>variableUUIDsInMenu</key>
-						<array/>
-					</dict>
-				</dict>
-				<key>AMProvides</key>
-				<dict>
-					<key>Container</key>
-					<string>List</string>
-					<key>Types</key>
-					<array>
-						<string>com.apple.cocoa.path</string>
-					</array>
-				</dict>
-				<key>ActionBundlePath</key>
-				<string>/System/Library/Automator/Open Finder Items.action</string>
-				<key>ActionName</key>
-				<string>打开 Finder 项目</string>
-				<key>ActionParameters</key>
-				<dict>
-					<key>appPath</key>
-					<string></string>
-				</dict>
-				<key>BundleIdentifier</key>
-				<string>com.apple.Automator.OpenFinderItems</string>
-				<key>CFBundleVersion</key>
-				<string>1.1.1</string>
-				<key>CanShowSelectedItemsWhenRun</key>
-				<true/>
-				<key>CanShowWhenRun</key>
-				<true/>
-				<key>Category</key>
-				<array>
-					<string>AMCategoryFilesAndFolders</string>
-				</array>
-				<key>Class Name</key>
-				<string>AMOpenFinderItems</string>
-				<key>InputUUID</key>
-				<string>AFEB31CB-C363-4EC6-AC68-5ADAB9C63FAE</string>
-				<key>Keywords</key>
-				<array>
-					<string>打开</string>
-					<string>文稿</string>
-					<string>文件</string>
-				</array>
-				<key>OutputUUID</key>
-				<string>718F0CA5-3CE4-47A2-871A-FB46EBB1D1B6</string>
-				<key>UUID</key>
-				<string>B1A00A93-E395-4A6F-8443-F79B410D8C6E</string>
-				<key>UnlocalizedApplications</key>
-				<array>
-					<string>Finder</string>
-				</array>
-				<key>arguments</key>
-				<dict>
-					<key>0</key>
-					<dict>
-						<key>default value</key>
-						<string></string>
-						<key>name</key>
-						<string>appPath</string>
-						<key>required</key>
-						<string>0</string>
-						<key>type</key>
-						<string>0</string>
-						<key>uuid</key>
-						<string>0</string>
-					</dict>
-				</dict>
-				<key>isViewVisible</key>
-				<true/>
-				<key>location</key>
-				<string>440.000000:1064.000000</string>
-				<key>nibPath</key>
-				<string>/System/Library/Automator/Open Finder Items.action/Contents/Resources/Base.lproj/main.nib</string>
-			</dict>
-			<key>isViewVisible</key>
-			<true/>
-		</dict>
 	</array>
 	<key>connectors</key>
 	<dict>
-		<key>4D6AE063-43D2-43E9-9BBE-73F77CF7A4F4</key>
+		<key>2448340C-7B09-4101-A6E9-E43738B9D7BE</key>
 		<dict>
 			<key>from</key>
-			<string>5D34B117-247B-496C-B4CF-FB6A5CE42C44 - 5D34B117-247B-496C-B4CF-FB6A5CE42C44</string>
+			<string>655FF99D-9107-4763-9262-8824F5350463 - 655FF99D-9107-4763-9262-8824F5350463</string>
 			<key>to</key>
-			<string>E9289C71-471E-481D-AD18-F1FF62EFE9DA - E9289C71-471E-481D-AD18-F1FF62EFE9DA</string>
+			<string>F982F40D-D8FF-495D-A24D-C0D182BA6A2D - F982F40D-D8FF-495D-A24D-C0D182BA6A2D</string>
 		</dict>
-		<key>548D6C0C-1759-41AB-A0D8-1B08F2049EFE</key>
-		<dict>
-			<key>from</key>
-			<string>E9289C71-471E-481D-AD18-F1FF62EFE9DA - E9289C71-471E-481D-AD18-F1FF62EFE9DA</string>
-			<key>to</key>
-			<string>B1A00A93-E395-4A6F-8443-F79B410D8C6E - B1A00A93-E395-4A6F-8443-F79B410D8C6E</string>
-		</dict>
-		<key>BA99DBF8-4253-4C7F-850B-7234D7950409</key>
+		<key>39FCFC8C-9284-4584-BEAF-6BFE42C3AB7B</key>
 		<dict>
 			<key>from</key>
 			<string>F982F40D-D8FF-495D-A24D-C0D182BA6A2D - F982F40D-D8FF-495D-A24D-C0D182BA6A2D</string>
 			<key>to</key>
 			<string>5D34B117-247B-496C-B4CF-FB6A5CE42C44 - 5D34B117-247B-496C-B4CF-FB6A5CE42C44</string>
 		</dict>
-		<key>D1DA28C1-DFD0-4F61-B352-10D074260FDD</key>
+		<key>6C84502D-489F-4BC2-9B8E-6324EC460678</key>
+		<dict>
+			<key>from</key>
+			<string>DF0F845F-1B9A-4517-AFFF-061436D3BF20 - DF0F845F-1B9A-4517-AFFF-061436D3BF20</string>
+			<key>to</key>
+			<string>655FF99D-9107-4763-9262-8824F5350463 - 655FF99D-9107-4763-9262-8824F5350463</string>
+		</dict>
+		<key>746218BD-625D-4CF5-89F5-01487BA836BA</key>
 		<dict>
 			<key>from</key>
 			<string>18B408C5-1288-4D7D-B28D-21B2A37B9408 - 18B408C5-1288-4D7D-B28D-21B2A37B9408</string>
 			<key>to</key>
 			<string>DF0F845F-1B9A-4517-AFFF-061436D3BF20 - DF0F845F-1B9A-4517-AFFF-061436D3BF20</string>
 		</dict>
-		<key>DCD90E0F-7C77-4E44-AD2D-E8B3DD8291EF</key>
+		<key>D91B1E4B-4FE7-475B-8138-50564BE5937A</key>
 		<dict>
 			<key>from</key>
-			<string>DF0F845F-1B9A-4517-AFFF-061436D3BF20 - DF0F845F-1B9A-4517-AFFF-061436D3BF20</string>
+			<string>5D34B117-247B-496C-B4CF-FB6A5CE42C44 - 5D34B117-247B-496C-B4CF-FB6A5CE42C44</string>
 			<key>to</key>
-			<string>655FF99D-9107-4763-9262-8824F5350463 - 655FF99D-9107-4763-9262-8824F5350463</string>
-		</dict>
-		<key>EA1696E1-78EF-43E5-AFB8-E5AE57BD0A8B</key>
-		<dict>
-			<key>from</key>
-			<string>655FF99D-9107-4763-9262-8824F5350463 - 655FF99D-9107-4763-9262-8824F5350463</string>
-			<key>to</key>
-			<string>F982F40D-D8FF-495D-A24D-C0D182BA6A2D - F982F40D-D8FF-495D-A24D-C0D182BA6A2D</string>
+			<string>E9289C71-471E-481D-AD18-F1FF62EFE9DA - E9289C71-471E-481D-AD18-F1FF62EFE9DA</string>
 		</dict>
 	</dict>
 	<key>variables</key>
