@@ -86,7 +86,21 @@ def make_str_list_cmd_resize_images_thumbs_portrait(_path,_dir,_src_image,_out_w
     return(_str_list)
 
 def check_bool_image_is_portrait(_path,_src_image):
-    pass
+    _str_src_path = os.path.join(_path,_src_image)
+    _cmd_str_get_in_w = ('sips %s -g pixelWidth | grep pixel | awk \'{print $NF}\'') % _str_src_path
+    _cmd_str_get_in_h = ('sips %s -g pixelHeight | grep pixel | awk \'{print $NF}\'') % _str_src_path
+    try:
+        _out_bytes_in_w = subprocess.check_output(_cmd_str_get_in_w,shell=True)
+        _out_bytes_in_h = subprocess.check_output(_cmd_str_get_in_h,shell=True)
+    except subprocess.CalledProcessError as e:
+        raise e
+    _str_w = _out_bytes_in_w.decode('utf-8')
+    _str_h = _out_bytes_in_h.decode('utf-8')
+    if int(_str_h) > int(_str_w):
+        _bool = True
+    else:
+        _bool = False
+    return(_bool)
 
 def main():
     _str_raw_path = get_str_raw_src_media_path_from_keyboard()
