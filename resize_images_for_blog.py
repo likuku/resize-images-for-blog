@@ -11,6 +11,7 @@ import os
 import subprocess
 import time
 
+print('版本: v1.2 20171222')
 print('需要 Python v3.x :')
 
 def get_str_raw_src_media_path_from_keyboard():
@@ -141,7 +142,7 @@ def main():
                                                                '360','360')
         print(_cmd_array_thumbs)
         print(_cmd_array_fulls)
-        #continue
+        continue
         subprocess.call(_cmd_array_thumbs)
         subprocess.call(_cmd_array_fulls)
 
