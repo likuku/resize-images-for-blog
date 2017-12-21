@@ -142,7 +142,7 @@ def main():
                                                                '360','360')
         print(_cmd_array_thumbs)
         print(_cmd_array_fulls)
-        continue
+        #continue
         subprocess.call(_cmd_array_thumbs)
         subprocess.call(_cmd_array_fulls)
 
