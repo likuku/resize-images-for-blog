@@ -64,8 +64,8 @@ def make_str_list_cmd_resize_images_thumbs(_path,_dir,_src_image,_out_w,_out_h):
     _str_list = ['sips',
         _str_src_path,
         '-s','format','jpeg',
-        '--resampleHeight','300',
-        '--cropToHeightWidth','300','300',
+        '--resampleHeight',_out_h,
+        '--cropToHeightWidth',_out_w,_out_h,
         '-m','/System/Library/Colorsync/Profiles/sRGB Profile.icc',
         '--out',_str_output_path]
     return(_str_list)
@@ -79,8 +79,8 @@ def make_str_list_cmd_resize_images_thumbs_portrait(_path,_dir,_src_image,_out_w
     _str_list = ['sips',
         _str_src_path,
         '-s','format','jpeg',
-        '--resampleWidth','300',
-        '--cropToHeightWidth','300','300',
+        '--resampleWidth',_out_w,
+        '--cropToHeightWidth',_out_h,_out_w,
         '-m','/System/Library/Colorsync/Profiles/sRGB Profile.icc',
         '--out',_str_output_path]
     return(_str_list)
@@ -124,14 +124,21 @@ def main():
         pass
     for _src_image in _str_list_src_images:
         # 1200x750 is full_size,360x225 is thumbnail_size, in demo
-        _cmd_array_thumbs = make_str_list_cmd_resize_images(_str_path,
-                                                               'thumbs',
-                                                               _src_image,
-                                                               '360','360')
-        _cmd_array_fulls = make_str_list_cmd_resize_images(_str_path,
+        _cmd_array_fulls = make_str_list_cmd_resize_images_fulls(_str_path,
                                                           'fulls',
                                                           _src_image,
                                                           '1200','750')
+        if check_bool_image_is_portrait(_str_path,_src_image):
+            _cmd_array_thumbs = make_str_list_cmd_resize_images_thumbs_portrait(
+                                                                _str_path,
+                                                                'thumbs',
+                                                                _src_image,
+                                                                '360','360')
+        else:
+            _cmd_array_thumbs = make_str_list_cmd_resize_images_thumbs(_str_path,
+                                                               'thumbs',
+                                                               _src_image,
+                                                               '360','360')
         print(_cmd_array_thumbs)
         print(_cmd_array_fulls)
         continue
