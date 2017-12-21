@@ -1,9 +1,8 @@
 '''
 Copy Right by likuku
 likuku.public@gmail.com
-last update on Dec18,2017
+last update on Dec21,2017
 先决条件:
-安装 ffmpeg-static, 路径加入当前用户 PATH 环境变量里
 安装 python3
 '''
 
@@ -12,7 +11,7 @@ import os
 import subprocess
 import time
 
-print('需要 FFmpeg v3.3.x 和 Python v3.x :')
+print('需要 Python v3.x :')
 
 def get_str_raw_src_media_path_from_keyboard():
     _str_input_msg = '请输入素材图片目录路径 : '
@@ -39,17 +38,31 @@ def get_str_list_src_images(_str_dir_path):
                 _str_list.append(entry.name)
     return(_str_list)
 
-def make_str_list_cmd_resize_images(_path,_dir,_src_image,_out_w,_out_h):
-    ''' _dir is: full or thumbnail '''
+def make_str_list_cmd_resize_images_fulls(_path,_dir,_src_image,_out_w,_out_h):
+    ''' _dir is: fulls or thumbs '''
     _str_list = []
     _str_src_path = os.path.join(_path,_src_image)
-    _str_output_path = os.path.join(_path,_dir,_src_image)
-    _str_vf = ('scale=w={_out_w}:h={_out_h}:force_original_aspect_ratio=decrease,'
-               'pad=x=(ow-iw)/2:y=(oh-ih)/2:w={_out_w}:h={_out_h}')
-    _str_vf= _str_vf.format_map(vars())
-    _str_list = ['ffmpeg','-i',_str_src_path,'-pix_fmt','yuvj420p',
-                 '-vf',_str_vf,'-q:v','2',_str_output_path]
+    _str_output_path = os.path.join(_path,_dir,
+                                    os.path.splitext(_src_image)[0]+'.jpg')
+    # webColor: 0D0D0D means light is 5% or dark is 95%
+    _str_list = ['sips',
+        _str_src_path,
+        '-s','format','jpeg',
+        '--resampleHeight',_out_h,
+        '--padToHeightWidth',_out_h,_out_w,
+        '--padColor','0D0D0D',
+        '-m','/System/Library/Colorsync/Profiles/sRGB Profile.icc',
+        '--out',_str_output_path]
     return(_str_list)
+
+    def make_str_list_cmd_resize_images_thumbs(_path,_dir,_src_image,_out_w,_out_h):
+        pass
+
+    def make_str_list_cmd_resize_images_thumbs_portrait(_path,_dir,_src_image,_out_w,_out_h):
+        pass
+
+    def check_bool_image_is_portrait(_path,_src_image):
+        pass
 
 def main():
     _str_raw_path = get_str_raw_src_media_path_from_keyboard()
