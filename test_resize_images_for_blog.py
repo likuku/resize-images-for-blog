@@ -91,7 +91,21 @@ class Test_resize_images_for_blog(unittest.TestCase):
 
     def test_make_str_list_cmd_resize_images_thumbs(self):
         # make_str_list_cmd_resize_images_thumbs(_path,_dir,_src_image,_out_w,_out_h)
-        pass
+        _path = '/path/subPath'
+        _dir = 'thumbs'
+        _src_image = '1.jpg'
+        _out_w = '300'
+        _out_h = '300'
+        _str_src_path = os.path.join(_path,_src_image)
+        _str_output_path = os.path.join(_path,_dir,_src_image)
+        self.assertEqual(['sips',
+                          _str_src_path,
+                          '-s','format','jpeg',
+                          '--resampleHeight','300',
+                          '--cropToHeightWidth','300','300',
+                          '-m','/System/Library/Colorsync/Profiles/sRGB Profile.icc',
+                          '--out',_str_output_path],
+             make_str_list_cmd_resize_images_thumbs(_path,_dir,_src_image,_out_w,_out_h))
 
     def test_make_str_list_cmd_resize_images_thumbs_portrait(self):
         # make_str_list_cmd_resize_images_thumbs_portrait(_path,_dir,_src_image,_out_w,_out_h)
