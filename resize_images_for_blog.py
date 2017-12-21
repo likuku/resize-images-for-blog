@@ -1,7 +1,7 @@
 '''
 Copy Right by likuku
 likuku.public@gmail.com
-last update on Dec21,2017
+last update on Dec22,2017
 先决条件:
 安装 python3
 '''
