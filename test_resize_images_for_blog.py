@@ -127,7 +127,13 @@ class Test_resize_images_for_blog(unittest.TestCase):
 
     def test_check_bool_image_is_portrait(self):
         # check_bool_image_is_portrait(_path,_src_image)
-        pass
+        self.assertEqual(True,
+            check_bool_image_is_portrait('.','300x600.jpg'))
+        self.assertEqual(False,
+            check_bool_image_is_portrait('.','300x200.jpg'))
+        self.assertEqual(False,
+            check_bool_image_is_portrait('.','300x300.jpg'))
+
 
 
 if __name__ == '__main__':
