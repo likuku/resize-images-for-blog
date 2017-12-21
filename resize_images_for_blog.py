@@ -1,9 +1,8 @@
 '''
 Copy Right by likuku
 likuku.public@gmail.com
-last update on Dec18,2017
+last update on Dec22,2017
 先决条件:
-安装 ffmpeg-static, 路径加入当前用户 PATH 环境变量里
 安装 python3
 '''
 
@@ -12,8 +11,7 @@ import os
 import subprocess
 import time
 
-print('版本: v1.0.2 20171218')
-print('需要 FFmpeg v3.3.x 和 Python v3.x :')
+print('需要 Python v3.x :')
 
 def get_str_raw_src_media_path_from_keyboard():
     _str_input_msg = '请输入素材图片目录路径 : '
@@ -24,8 +22,7 @@ def check_str_raw_src_media_path(_str_input):
     if len(_str_input) == 0:
         _bool_src_media_path = False
     else:
-        _bool_src_media_path = os.access(_str_input.replace('"','').strip(),
-                                         os.F_OK)
+        _bool_src_media_path = os.path.isdir(_str_input.replace('"','').strip())
     return(_bool_src_media_path)
 
 def rebuild_str_src_media_path(_str_input):
@@ -41,17 +38,69 @@ def get_str_list_src_images(_str_dir_path):
                 _str_list.append(entry.name)
     return(_str_list)
 
-def make_str_list_cmd_resize_images(_path,_dir,_src_image,_out_w,_out_h):
-    ''' _dir is: full or thumbnail '''
+def make_str_list_cmd_resize_images_fulls(_path,_dir,_src_image,_out_w,_out_h):
+    ''' _dir is: fulls or thumbs '''
     _str_list = []
     _str_src_path = os.path.join(_path,_src_image)
-    _str_output_path = os.path.join(_path,_dir,_src_image)
-    _str_vf = ('scale=w={_out_w}:h={_out_h}:force_original_aspect_ratio=decrease,'
-               'pad=x=(ow-iw)/2:y=(oh-ih)/2:w={_out_w}:h={_out_h}')
-    _str_vf= _str_vf.format_map(vars())
-    _str_list = ['ffmpeg','-i',_str_src_path,'-pix_fmt','yuvj420p',
-                 '-vf',_str_vf,'-q:v','2',_str_output_path]
+    _str_output_path = os.path.join(_path,_dir,
+                                    os.path.splitext(_src_image)[0]+'.jpg')
+    # webColor: 0D0D0D means light is 5% or dark is 95%
+    _str_list = ['sips',
+        _str_src_path,
+        '-s','format','jpeg',
+        '--resampleHeight',_out_h,
+        '--padToHeightWidth',_out_h,_out_w,
+        '--padColor','0D0D0D',
+        '-m','/System/Library/Colorsync/Profiles/sRGB Profile.icc',
+        '--out',_str_output_path]
     return(_str_list)
+
+def make_str_list_cmd_resize_images_thumbs(_path,_dir,_src_image,_out_w,_out_h):
+    ''' _dir is: thumbs '''
+    _str_list = []
+    _str_src_path = os.path.join(_path,_src_image)
+    _str_output_path = os.path.join(_path,_dir,
+                                    os.path.splitext(_src_image)[0]+'.jpg')
+    _str_list = ['sips',
+        _str_src_path,
+        '-s','format','jpeg',
+        '--resampleHeight',_out_h,
+        '--cropToHeightWidth',_out_w,_out_h,
+        '-m','/System/Library/Colorsync/Profiles/sRGB Profile.icc',
+        '--out',_str_output_path]
+    return(_str_list)
+
+def make_str_list_cmd_resize_images_thumbs_portrait(_path,_dir,_src_image,_out_w,_out_h):
+    ''' _dir is: thumbs '''
+    _str_list = []
+    _str_src_path = os.path.join(_path,_src_image)
+    _str_output_path = os.path.join(_path,_dir,
+                                    os.path.splitext(_src_image)[0]+'.jpg')
+    _str_list = ['sips',
+        _str_src_path,
+        '-s','format','jpeg',
+        '--resampleWidth',_out_w,
+        '--cropToHeightWidth',_out_h,_out_w,
+        '-m','/System/Library/Colorsync/Profiles/sRGB Profile.icc',
+        '--out',_str_output_path]
+    return(_str_list)
+
+def check_bool_image_is_portrait(_path,_src_image):
+    _str_src_path = os.path.join(_path,_src_image)
+    _cmd_str_get_in_w = ('sips %s -g pixelWidth | grep pixel | awk \'{print $NF}\'') % _str_src_path
+    _cmd_str_get_in_h = ('sips %s -g pixelHeight | grep pixel | awk \'{print $NF}\'') % _str_src_path
+    try:
+        _out_bytes_in_w = subprocess.check_output(_cmd_str_get_in_w,shell=True)
+        _out_bytes_in_h = subprocess.check_output(_cmd_str_get_in_h,shell=True)
+    except subprocess.CalledProcessError as e:
+        raise e
+    _str_w = _out_bytes_in_w.decode('utf-8')
+    _str_h = _out_bytes_in_h.decode('utf-8')
+    if int(_str_h) > int(_str_w):
+        _bool = True
+    else:
+        _bool = False
+    return(_bool)
 
 def main():
     _str_raw_path = get_str_raw_src_media_path_from_keyboard()
@@ -75,14 +124,21 @@ def main():
         pass
     for _src_image in _str_list_src_images:
         # 1200x750 is full_size,360x225 is thumbnail_size, in demo
-        _cmd_array_thumbs = make_str_list_cmd_resize_images(_str_path,
-                                                               'thumbs',
-                                                               _src_image,
-                                                               '360','360')
-        _cmd_array_fulls = make_str_list_cmd_resize_images(_str_path,
+        _cmd_array_fulls = make_str_list_cmd_resize_images_fulls(_str_path,
                                                           'fulls',
                                                           _src_image,
                                                           '1200','750')
+        if check_bool_image_is_portrait(_str_path,_src_image):
+            _cmd_array_thumbs = make_str_list_cmd_resize_images_thumbs_portrait(
+                                                                _str_path,
+                                                                'thumbs',
+                                                                _src_image,
+                                                                '360','360')
+        else:
+            _cmd_array_thumbs = make_str_list_cmd_resize_images_thumbs(_str_path,
+                                                               'thumbs',
+                                                               _src_image,
+                                                               '360','360')
         print(_cmd_array_thumbs)
         print(_cmd_array_fulls)
         #continue
