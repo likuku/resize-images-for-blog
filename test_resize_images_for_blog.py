@@ -9,7 +9,7 @@ def create_test_env():
     except Exception as e:
         pass
     try:
-        for _file in ['.DS_Store.jpg','1.jpg','2.jpg','3.jpg']:
+        for _file in ['.DS_Store.jpg','1.jpg','2.jpg','3.jpg','file name.jpg']:
             _path = os.path.join(_dir,_file)
             _f = os.open(_path,os.O_CREAT)
             os.close(_f)
@@ -19,7 +19,7 @@ def create_test_env():
 def clean_test_env():
     _dir = 'tmp'
     try:
-        for _file in ['.DS_Store.jpg','1.jpg','2.jpg','3.jpg']:
+        for _file in ['.DS_Store.jpg','1.jpg','2.jpg','3.jpg','file name.jpg']:
             _path = os.path.join(_dir,_file)
             os.remove(_path)
     except Exception as e:
@@ -61,7 +61,7 @@ class Test_resize_images_for_blog(unittest.TestCase):
              rebuild_str_src_media_path('"/path/sub\ Path "'))
 
     def test_get_str_list_src_images(self):
-        self.assertEqual(['1.jpg','2.jpg','3.jpg'],
+        self.assertEqual(['1.jpg','2.jpg','3.jpg','file name.jpg'],
              get_str_list_src_images('tmp'))
 
     def test_make_str_list_cmd_resize_images_fulls(self):
