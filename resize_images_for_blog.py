@@ -11,7 +11,7 @@ import os
 import subprocess
 import time
 
-print('版本: v1.2 20171222')
+print('版本: v1.2.1 20171222')
 print('需要 Python v3.x :')
 
 def get_str_raw_src_media_path_from_keyboard():
@@ -91,9 +91,16 @@ def check_bool_image_is_portrait(_path,_src_image):
     _cmd_str_get_in_w = ('sips %s -g pixelWidth | grep pixel | awk \'{print $NF}\'') % _str_src_path
     _cmd_str_get_in_h = ('sips %s -g pixelHeight | grep pixel | awk \'{print $NF}\'') % _str_src_path
     try:
-        _out_bytes_in_w = subprocess.check_output(_cmd_str_get_in_w,shell=True)
-        _out_bytes_in_h = subprocess.check_output(_cmd_str_get_in_h,shell=True)
+        _obj_cmd = subprocess.Popen(_cmd_str_get_in_w,shell=True,stdout=subprocess.PIPE)
+        _obj_cmd.wait()
+        _out_bytes_in_w = _obj_cmd.stdout.read()
+        _obj_cmd.stdout.close()
+        _obj_cmd = subprocess.Popen(_cmd_str_get_in_h,shell=True,stdout=subprocess.PIPE)
+        _obj_cmd.wait()
+        _out_bytes_in_h = _obj_cmd.stdout.read()
+        _obj_cmd.stdout.close()
     except subprocess.CalledProcessError as e:
+        print('[Error]: sips get pixel from image is crash.')
         raise e
     _str_w = _out_bytes_in_w.decode('utf-8')
     _str_h = _out_bytes_in_h.decode('utf-8')
@@ -143,8 +150,12 @@ def main():
         print(_cmd_array_thumbs)
         print(_cmd_array_fulls)
         #continue
-        subprocess.call(_cmd_array_thumbs)
-        subprocess.call(_cmd_array_fulls)
+        try:
+            subprocess.call(_cmd_array_thumbs)
+            subprocess.call(_cmd_array_fulls)
+        except Exception as e:
+            print('[Error]: sips rebuild images is crash.')
+            raise e
 
 
 if __name__ == '__main__':
