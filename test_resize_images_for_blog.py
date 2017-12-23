@@ -30,7 +30,14 @@ def clean_test_env(_file_list):
         raise
 
 class Test_resize_images_for_blog(unittest.TestCase):
-    tmp_file_list = ['.DS_Store.jpg','1.jpg','2.jpg','3.jpg','file name.jpg']
+    tmp_file_list = ['.DS_Store.jpg',
+                     '1.jpg',
+                     '2.jpg',
+                     '3.jpg',
+                     'file name.jpg',
+                     'file-name.jpg',
+                     'file,name.jpg',
+                     'file(name).jpg']
     def setUp(self):
         create_test_env(self.tmp_file_list)
 
@@ -62,8 +69,8 @@ class Test_resize_images_for_blog(unittest.TestCase):
              rebuild_str_src_media_path('"/path/sub\ Path "'))
 
     def test_get_str_list_src_images(self):
-        self.assertEqual(self.tmp_file_list[1:],
-             get_str_list_src_images('tmp'))
+        self.assertSetEqual(set(self.tmp_file_list[1:]),
+             set(get_str_list_src_images('tmp')))
 
     def test_make_str_list_cmd_resize_images_fulls(self):
         # make_str_list_cmd_resize_images(_path,_dir,_src_image,_out_w,_out_h)
