@@ -1,7 +1,7 @@
 '''
 Copy Right by likuku
 likuku.public@gmail.com
-last update on Dec22,2017
+last update on Dec23,2017
 先决条件:
 安装 python3
 '''
@@ -44,6 +44,8 @@ def make_str_list_cmd_resize_images_fulls(_path,_dir,_src_image,_out_w,_out_h):
     _str_src_path = os.path.join(_path,_src_image)
     _str_output_path = os.path.join(_path,_dir,
                                     os.path.splitext(_src_image)[0]+'.jpg')
+    _str_src_path = '"' + _str_src_path + '"'
+    _str_output_path = '"' + _str_output_path + '"'
     # webColor: 0D0D0D means light is 5% or dark is 95%
     _str_list = ['sips',
         _str_src_path,
@@ -61,6 +63,8 @@ def make_str_list_cmd_resize_images_thumbs(_path,_dir,_src_image,_out_w,_out_h):
     _str_src_path = os.path.join(_path,_src_image)
     _str_output_path = os.path.join(_path,_dir,
                                     os.path.splitext(_src_image)[0]+'.jpg')
+    _str_src_path = '"' + _str_src_path + '"'
+    _str_output_path = '"' + _str_output_path + '"'
     _str_list = ['sips',
         _str_src_path,
         '-s','format','jpeg',
@@ -76,6 +80,8 @@ def make_str_list_cmd_resize_images_thumbs_portrait(_path,_dir,_src_image,_out_w
     _str_src_path = os.path.join(_path,_src_image)
     _str_output_path = os.path.join(_path,_dir,
                                     os.path.splitext(_src_image)[0]+'.jpg')
+    _str_src_path = '"' + _str_src_path + '"'
+    _str_output_path = '"' + _str_output_path + '"'
     _str_list = ['sips',
         _str_src_path,
         '-s','format','jpeg',
