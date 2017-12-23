@@ -44,8 +44,8 @@ def make_str_list_cmd_resize_images_fulls(_path,_dir,_src_image,_out_w,_out_h):
     _str_src_path = os.path.join(_path,_src_image)
     _str_output_path = os.path.join(_path,_dir,
                                     os.path.splitext(_src_image)[0]+'.jpg')
-    _str_src_path = '"' + _str_src_path + '"'
-    _str_output_path = '"' + _str_output_path + '"'
+    _str_src_path = _str_src_path.encode('utf-8')
+    _str_output_path = _str_output_path.encode('utf-8')
     # webColor: 0D0D0D means light is 5% or dark is 95%
     _str_list = ['sips',
         _str_src_path,
@@ -53,7 +53,7 @@ def make_str_list_cmd_resize_images_fulls(_path,_dir,_src_image,_out_w,_out_h):
         '--resampleHeight',_out_h,
         '--padToHeightWidth',_out_h,_out_w,
         '--padColor','0D0D0D',
-        '-m','/System/Library/Colorsync/Profiles/sRGB Profile.icc',
+        '-m',b'/System/Library/Colorsync/Profiles/sRGB Profile.icc',
         '--out',_str_output_path]
     return(_str_list)
 
@@ -63,14 +63,14 @@ def make_str_list_cmd_resize_images_thumbs(_path,_dir,_src_image,_out_w,_out_h):
     _str_src_path = os.path.join(_path,_src_image)
     _str_output_path = os.path.join(_path,_dir,
                                     os.path.splitext(_src_image)[0]+'.jpg')
-    _str_src_path = '"' + _str_src_path + '"'
-    _str_output_path = '"' + _str_output_path + '"'
+    _str_src_path = _str_src_path.encode('utf-8')
+    _str_output_path = _str_output_path.encode('utf-8')
     _str_list = ['sips',
         _str_src_path,
         '-s','format','jpeg',
         '--resampleHeight',_out_h,
         '--cropToHeightWidth',_out_w,_out_h,
-        '-m','/System/Library/Colorsync/Profiles/sRGB Profile.icc',
+        '-m',b'/System/Library/Colorsync/Profiles/sRGB Profile.icc',
         '--out',_str_output_path]
     return(_str_list)
 
@@ -80,35 +80,36 @@ def make_str_list_cmd_resize_images_thumbs_portrait(_path,_dir,_src_image,_out_w
     _str_src_path = os.path.join(_path,_src_image)
     _str_output_path = os.path.join(_path,_dir,
                                     os.path.splitext(_src_image)[0]+'.jpg')
-    _str_src_path = '"' + _str_src_path + '"'
-    _str_output_path = '"' + _str_output_path + '"'
+    _str_src_path = _str_src_path.encode('utf-8')
+    _str_output_path = _str_output_path.encode('utf-8')
     _str_list = ['sips',
         _str_src_path,
         '-s','format','jpeg',
         '--resampleWidth',_out_w,
         '--cropToHeightWidth',_out_h,_out_w,
-        '-m','/System/Library/Colorsync/Profiles/sRGB Profile.icc',
+        '-m',b'/System/Library/Colorsync/Profiles/sRGB Profile.icc',
         '--out',_str_output_path]
     return(_str_list)
 
 def check_bool_image_is_portrait(_path,_src_image):
     _str_src_path = os.path.join(_path,_src_image)
-    _cmd_str_get_in_w = ('sips %s -g pixelWidth | grep pixel | awk \'{print $NF}\'') % _str_src_path
-    _cmd_str_get_in_h = ('sips %s -g pixelHeight | grep pixel | awk \'{print $NF}\'') % _str_src_path
+    _bytes_src_path = _str_src_path.encode('utf-8')
+    _cmd_array_get_in_w = ['sips',_bytes_src_path,'-g','pixelWidth']
+    _cmd_array_get_in_h = ['sips',_bytes_src_path,'-g','pixelHeight']
     try:
-        _obj_cmd = subprocess.Popen(_cmd_str_get_in_w,shell=True,stdout=subprocess.PIPE)
+        _obj_cmd = subprocess.Popen(_cmd_array_get_in_w,shell=False,stdout=subprocess.PIPE)
         _obj_cmd.wait()
         _out_bytes_in_w = _obj_cmd.stdout.read()
         _obj_cmd.stdout.close()
-        _obj_cmd = subprocess.Popen(_cmd_str_get_in_h,shell=True,stdout=subprocess.PIPE)
+        _obj_cmd = subprocess.Popen(_cmd_array_get_in_h,shell=False,stdout=subprocess.PIPE)
         _obj_cmd.wait()
         _out_bytes_in_h = _obj_cmd.stdout.read()
         _obj_cmd.stdout.close()
     except subprocess.CalledProcessError as e:
         print('[Error]: sips get pixel from image is crash.')
         raise e
-    _str_w = _out_bytes_in_w.decode('utf-8')
-    _str_h = _out_bytes_in_h.decode('utf-8')
+    _str_w = _out_bytes_in_w.decode('utf-8').rsplit(' ',1)[1]
+    _str_h = _out_bytes_in_h.decode('utf-8').rsplit(' ',1)[1]
     if int(_str_h) > int(_str_w):
         _bool = True
     else:
