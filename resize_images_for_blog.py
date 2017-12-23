@@ -1,7 +1,7 @@
 '''
 Copy Right by likuku
 likuku.public@gmail.com
-last update on Dec23,2017
+last update on Dec24,2017
 先决条件:
 安装 python3
 '''
@@ -117,7 +117,7 @@ def check_bool_image_is_portrait(_path,_src_image):
         _bool = False
     return(_bool)
 
-def main():
+def main(_dev_mode):
     _str_raw_path = get_str_raw_src_media_path_from_keyboard()
     if check_str_raw_src_media_path(_str_raw_path):
         _str_path = rebuild_str_src_media_path(_str_raw_path)
@@ -133,8 +133,12 @@ def main():
     else:
         pass
     try:
-        os.mkdir(os.path.join(_str_path,'thumbs'))
-        os.mkdir(os.path.join(_str_path,'fulls'))
+        if _dev_mode is True:
+            print('os.mkdir(%s)' % os.path.join(_str_path,'thumbs'))
+            print('os.mkdir(%s)' % os.path.join(_str_path,'fulls'))
+        else:
+            os.mkdir(os.path.join(_str_path,'thumbs'))
+            os.mkdir(os.path.join(_str_path,'fulls'))
     except Exception as e:
         pass
     for _src_image in _str_list_src_images:
@@ -154,16 +158,44 @@ def main():
                                                                'thumbs',
                                                                _src_image,
                                                                '360','360')
-        #print(_cmd_array_thumbs)
-        #print(_cmd_array_fulls)
-        #continue
+        _num_total = len(_str_list_src_images)
+        _num_do = _str_list_src_images.index(_src_image) + 1
         try:
-            subprocess.call(_cmd_array_thumbs)
-            subprocess.call(_cmd_array_fulls)
-        except Exception as e:
+            print('[%s/%s] %s => %s ... ' % (_num_do,_num_total,
+                                            os.path.join(_str_path,_src_image),
+                                            os.path.join(_str_path,'thumbs',
+                                                os.path.splitext(_src_image)[0]+'.jpg')),
+                                            end='')
+            if _dev_mode is True:
+                print(_cmd_array_thumbs)
+            else:
+                _obj_cmd = subprocess.Popen(_cmd_array_thumbs,shell=False,
+                                        stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                _obj_cmd.wait()
+                _obj_cmd.stdout.close()
+                _obj_cmd.stderr.close()
+            print('OK')
+            print('[%s/%s] %s => %s ... ' % (_num_do,_num_total,
+                                            os.path.join(_str_path,_src_image),
+                                            os.path.join(_str_path,'fulls',
+                                                os.path.splitext(_src_image)[0]+'.jpg')),
+                                            end='')
+            if _dev_mode is True:
+                print(_cmd_array_fulls)
+            else:
+                _obj_cmd = subprocess.Popen(_cmd_array_fulls,shell=False,
+                                            stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                _obj_cmd.wait()
+                _obj_cmd.stdout.close()
+                _obj_cmd.stderr.close()
+            print('OK')
+        except subprocess.CalledProcessError as e:
             print('[Error]: sips rebuild images is crash.')
+            print(_cmd_array_thumbs)
+            print(_cmd_array_fulls)
             raise e
 
 
 if __name__ == '__main__':
-    main()
+    _dev_mode = True
+    main(_dev_mode)
