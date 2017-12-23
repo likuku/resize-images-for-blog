@@ -82,9 +82,9 @@ class Test_resize_images_for_blog(unittest.TestCase):
         for _src_image in self.tmp_file_list[1:]:
             _str_src_path = os.path.join(_path,_src_image)
             _str_output_path = os.path.join(_path,_dir,_src_image)
-            _str_src_path = '"' + os.path.join(_path,_src_image) + '"'
-            _str_output_path = '"' + os.path.join(_path,_dir,_src_image) + '"'
-            print(_str_src_path,_str_src_path)
+            _str_src_path = _str_src_path.encode('utf-8')
+            _str_output_path = _str_output_path.encode('utf-8')
+            #print(_str_src_path,_str_src_path)
             '''
             _str_vf = ('scale=w={_out_w}:h={_out_h}:force_original_aspect_ratio=decrease,'
                        'pad=x=(ow-iw)/2:y=(oh-ih)/2:w={_out_w}:h={_out_h}')
@@ -108,9 +108,11 @@ class Test_resize_images_for_blog(unittest.TestCase):
         _out_w = '300'
         _out_h = '300'
         for _src_image in self.tmp_file_list[1:]:
-            _str_src_path = '"' + os.path.join(_path,_src_image) + '"'
-            _str_output_path = '"' + os.path.join(_path,_dir,_src_image) + '"'
-            print(_str_src_path,_str_src_path)
+            _str_src_path = os.path.join(_path,_src_image)
+            _str_output_path = os.path.join(_path,_dir,_src_image)
+            _str_src_path = _str_src_path.encode('utf-8')
+            _str_output_path = _str_output_path.encode('utf-8')
+            #print(_str_src_path,_str_src_path)
             self.assertEqual(['sips',
                               _str_src_path,
                               '-s','format','jpeg',
@@ -129,9 +131,9 @@ class Test_resize_images_for_blog(unittest.TestCase):
         for _src_image in self.tmp_file_list[1:]:
             _str_src_path = os.path.join(_path,_src_image)
             _str_output_path = os.path.join(_path,_dir,_src_image)
-            _str_src_path = '"' + os.path.join(_path,_src_image) + '"'
-            _str_output_path = '"' + os.path.join(_path,_dir,_src_image) + '"'
-            print(_str_src_path,_str_src_path)
+            _str_src_path = _str_src_path.encode('utf-8')
+            _str_output_path = _str_output_path.encode('utf-8')
+            #print(_str_src_path,_str_src_path)
             self.assertEqual(['sips',
                               _str_src_path,
                               '-s','format','jpeg',
@@ -149,6 +151,9 @@ class Test_resize_images_for_blog(unittest.TestCase):
             check_bool_image_is_portrait('.','300x200.jpg'))
         self.assertEqual(False,
             check_bool_image_is_portrait('.','300x300.jpg'))
+        self.assertEqual(True,
+            check_bool_image_is_portrait('.',
+                 '300x600 -( ),   06*?肖:像\[形}.jpg'))
 
 
 if __name__ == '__main__':
