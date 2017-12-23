@@ -97,7 +97,7 @@ class Test_resize_images_for_blog(unittest.TestCase):
                               '--resampleHeight','750',
                               '--padToHeightWidth','750','1200',
                               '--padColor','0D0D0D',
-                              '-m','/System/Library/Colorsync/Profiles/sRGB Profile.icc',
+                              '-m',b'/System/Library/Colorsync/Profiles/sRGB Profile.icc',
                               '--out',_str_output_path],
                  make_str_list_cmd_resize_images_fulls(_path,_dir,_src_image,_out_w,_out_h))
 
@@ -118,7 +118,7 @@ class Test_resize_images_for_blog(unittest.TestCase):
                               '-s','format','jpeg',
                               '--resampleHeight','300',
                               '--cropToHeightWidth','300','300',
-                              '-m','/System/Library/Colorsync/Profiles/sRGB Profile.icc',
+                              '-m',b'/System/Library/Colorsync/Profiles/sRGB Profile.icc',
                               '--out',_str_output_path],
                  make_str_list_cmd_resize_images_thumbs(_path,_dir,_src_image,_out_w,_out_h))
 
@@ -139,7 +139,7 @@ class Test_resize_images_for_blog(unittest.TestCase):
                               '-s','format','jpeg',
                               '--resampleWidth','300',
                               '--cropToHeightWidth','300','300',
-                              '-m','/System/Library/Colorsync/Profiles/sRGB Profile.icc',
+                              '-m',b'/System/Library/Colorsync/Profiles/sRGB Profile.icc',
                               '--out',_str_output_path],
                  make_str_list_cmd_resize_images_thumbs_portrait(_path,_dir,_src_image,_out_w,_out_h))
 
