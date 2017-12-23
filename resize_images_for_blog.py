@@ -11,7 +11,7 @@ import os
 import subprocess
 import time
 
-print('版本: v1.3 20171223')
+print('版本: v1.4 20171224')
 print('需要 Python v3.x :')
 
 def get_str_raw_src_media_path_from_keyboard():
@@ -197,5 +197,5 @@ def main(_dev_mode):
 
 
 if __name__ == '__main__':
-    _dev_mode = True
+    _dev_mode = False
     main(_dev_mode)
