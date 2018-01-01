@@ -38,6 +38,23 @@ def get_str_list_src_images(_str_dir_path):
                 _str_list.append(entry.name)
     return(_str_list)
 
+def make_str_list_cmd_resize_images_fulls_nopad(_path,_dir,_src_image,_out_w,_out_h):
+    ''' _dir is: fulls or thumbs '''
+    _str_list = []
+    _str_src_path = os.path.join(_path,_src_image)
+    _str_output_path = os.path.join(_path,_dir,
+                                    os.path.splitext(_src_image)[0]+'.jpg')
+    _str_src_path = _str_src_path.encode('utf-8')
+    _str_output_path = _str_output_path.encode('utf-8')
+    _out_max_size = str(max([int(_out_w),int(_out_h)]))
+    _str_list = ['sips',
+        _str_src_path,
+        '-s','format','jpeg',
+        '--resampleHeightWidthMax',_out_max_size,
+        '-m',b'/System/Library/Colorsync/Profiles/sRGB Profile.icc',
+        '--out',_str_output_path]
+    return(_str_list)
+
 def make_str_list_cmd_resize_images_fulls(_path,_dir,_src_image,_out_w,_out_h):
     ''' _dir is: fulls or thumbs '''
     _str_list = []
