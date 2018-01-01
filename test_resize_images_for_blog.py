@@ -73,6 +73,26 @@ class Test_resize_images_for_blog(unittest.TestCase):
         self.assertSetEqual(set(self.tmp_file_list[1:]),
              set(get_str_list_src_images('tmp')))
 
+    def test_make_str_list_cmd_resize_images_fulls_nopad(self):
+        # make_str_list_cmd_resize_images(_path,_dir,_src_image,_out_w,_out_h)
+        _path = '/path/subPath'
+        _dir = 'fulls'
+        _out_w = '1200'
+        _out_h = '750'
+        for _src_image in self.tmp_file_list[1:]:
+            _str_src_path = os.path.join(_path,_src_image)
+            _str_output_path = os.path.join(_path,_dir,_src_image)
+            _str_src_path = _str_src_path.encode('utf-8')
+            _str_output_path = _str_output_path.encode('utf-8')
+            #print(_str_src_path,_str_src_path)
+            self.assertEqual(['sips',
+                              _str_src_path,
+                              '-s','format','jpeg',
+                              '--resampleHeightWidthMax','1200',
+                              '-m',b'/System/Library/Colorsync/Profiles/sRGB Profile.icc',
+                              '--out',_str_output_path],
+                 make_str_list_cmd_resize_images_fulls_nopad(_path,_dir,_src_image,_out_w,_out_h))
+
     def test_make_str_list_cmd_resize_images_fulls(self):
         # make_str_list_cmd_resize_images(_path,_dir,_src_image,_out_w,_out_h)
         _path = '/path/subPath'

@@ -1,7 +1,7 @@
 '''
 Copy Right by likuku
 likuku.public@gmail.com
-last update on Dec24,2017
+last update on Jan1,2018
 先决条件:
 安装 python3
 '''
@@ -11,7 +11,7 @@ import os
 import subprocess
 import time
 
-print('版本: v1.4 20171224')
+print('版本: v1.5 20180101')
 print('需要 Python v3.x :')
 
 def get_str_raw_src_media_path_from_keyboard():
@@ -37,6 +37,23 @@ def get_str_list_src_images(_str_dir_path):
         for entry in it:
             if not entry.name.startswith('.') and entry.is_file():
                 _str_list.append(entry.name)
+    return(_str_list)
+
+def make_str_list_cmd_resize_images_fulls_nopad(_path,_dir,_src_image,_out_w,_out_h):
+    ''' _dir is: fulls or thumbs '''
+    _str_list = []
+    _str_src_path = os.path.join(_path,_src_image)
+    _str_output_path = os.path.join(_path,_dir,
+                                    os.path.splitext(_src_image)[0]+'.jpg')
+    _str_src_path = _str_src_path.encode('utf-8')
+    _str_output_path = _str_output_path.encode('utf-8')
+    _out_max_size = str(max([int(_out_w),int(_out_h)]))
+    _str_list = ['sips',
+        _str_src_path,
+        '-s','format','jpeg',
+        '--resampleHeightWidthMax',_out_max_size,
+        '-m',b'/System/Library/Colorsync/Profiles/sRGB Profile.icc',
+        '--out',_str_output_path]
     return(_str_list)
 
 def make_str_list_cmd_resize_images_fulls(_path,_dir,_src_image,_out_w,_out_h):
@@ -117,7 +134,7 @@ def check_bool_image_is_portrait(_path,_src_image):
         _bool = False
     return(_bool)
 
-def main(_dev_mode):
+def main(_dev_mode,_with_pad):
     _str_raw_path = get_str_raw_src_media_path_from_keyboard()
     if check_str_raw_src_media_path(_str_raw_path):
         _str_path = rebuild_str_src_media_path(_str_raw_path)
@@ -142,11 +159,18 @@ def main(_dev_mode):
     except Exception as e:
         pass
     for _src_image in _str_list_src_images:
-        # 1200x750 is full_size,360x225 is thumbnail_size, in demo
-        _cmd_array_fulls = make_str_list_cmd_resize_images_fulls(_str_path,
-                                                          'fulls',
-                                                          _src_image,
-                                                          '1200','750')
+        # 1200x750 is full_size,360x225 is thumbnail_size, in demo orig size
+        if _with_pad is True:
+            _cmd_array_fulls = make_str_list_cmd_resize_images_fulls(_str_path,
+                                                              'fulls',
+                                                              _src_image,
+                                                              '1200','750')
+        else:
+            _cmd_array_fulls = make_str_list_cmd_resize_images_fulls_nopad(
+                                                                _str_path,
+                                                                'fulls',
+                                                                _src_image,
+                                                                '1200','750')
         if check_bool_image_is_portrait(_str_path,_src_image):
             _cmd_array_thumbs = make_str_list_cmd_resize_images_thumbs_portrait(
                                                                 _str_path,
@@ -198,4 +222,5 @@ def main(_dev_mode):
 
 if __name__ == '__main__':
     _dev_mode = False
-    main(_dev_mode)
+    _with_pad = False
+    main(_dev_mode,_with_pad)
