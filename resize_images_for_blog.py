@@ -133,7 +133,7 @@ def check_bool_image_is_portrait(_path,_src_image):
         _bool = False
     return(_bool)
 
-def main(_dev_mode):
+def main(_dev_mode,_with_pad):
     _str_raw_path = get_str_raw_src_media_path_from_keyboard()
     if check_str_raw_src_media_path(_str_raw_path):
         _str_path = rebuild_str_src_media_path(_str_raw_path)
@@ -158,11 +158,18 @@ def main(_dev_mode):
     except Exception as e:
         pass
     for _src_image in _str_list_src_images:
-        # 1200x750 is full_size,360x225 is thumbnail_size, in demo
-        _cmd_array_fulls = make_str_list_cmd_resize_images_fulls(_str_path,
-                                                          'fulls',
-                                                          _src_image,
-                                                          '1200','750')
+        # 1200x750 is full_size,360x225 is thumbnail_size, in demo orig size
+        if _with_pad is True:
+            _cmd_array_fulls = make_str_list_cmd_resize_images_fulls(_str_path,
+                                                              'fulls',
+                                                              _src_image,
+                                                              '1200','750')
+        else:
+            _cmd_array_fulls = make_str_list_cmd_resize_images_fulls_nopad(
+                                                                _str_path,
+                                                                'fulls',
+                                                                _src_image,
+                                                                '1200','750')
         if check_bool_image_is_portrait(_str_path,_src_image):
             _cmd_array_thumbs = make_str_list_cmd_resize_images_thumbs_portrait(
                                                                 _str_path,
@@ -214,4 +221,5 @@ def main(_dev_mode):
 
 if __name__ == '__main__':
     _dev_mode = True
-    main(_dev_mode)
+    _with_pad = False
+    main(_dev_mode,_with_pad)
