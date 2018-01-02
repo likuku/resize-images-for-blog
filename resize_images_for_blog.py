@@ -11,7 +11,7 @@ import os
 import subprocess
 import time
 
-print('版本: v1.5 20180101')
+print('版本: v1.6 20180102')
 print('需要 Python v3.x :')
 
 def get_str_raw_src_media_path_from_keyboard():
