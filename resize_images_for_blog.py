@@ -1,7 +1,7 @@
 '''
 Copy Right by likuku
 likuku.public@gmail.com
-last update on Jan1,2018
+last update on Jan2,2018
 先决条件:
 安装 python3
 '''
@@ -75,6 +75,22 @@ def make_str_list_cmd_resize_images_fulls(_path,_dir,_src_image,_out_w,_out_h):
         '--out',_str_output_path]
     return(_str_list)
 
+def make_str_list_cmd_resize_images_thumbs_nocut(_path,_dir,_src_image,_out_h):
+    ''' _dir is: thumbs '''
+    _str_list = []
+    _str_src_path = os.path.join(_path,_src_image)
+    _str_output_path = os.path.join(_path,_dir,
+                                    os.path.splitext(_src_image)[0]+'.jpg')
+    _str_src_path = _str_src_path.encode('utf-8')
+    _str_output_path = _str_output_path.encode('utf-8')
+    _str_list = ['sips',
+        _str_src_path,
+        '-s','format','jpeg',
+        '--resampleHeight',_out_h,
+        '-m',b'/System/Library/Colorsync/Profiles/sRGB Profile.icc',
+        '--out',_str_output_path]
+    return(_str_list)
+
 def make_str_list_cmd_resize_images_thumbs(_path,_dir,_src_image,_out_w,_out_h):
     ''' _dir is: thumbs '''
     _str_list = []
@@ -134,7 +150,7 @@ def check_bool_image_is_portrait(_path,_src_image):
         _bool = False
     return(_bool)
 
-def main(_dev_mode,_with_pad):
+def main(_dev_mode,_with_pad,_with_cut):
     _str_raw_path = get_str_raw_src_media_path_from_keyboard()
     if check_str_raw_src_media_path(_str_raw_path):
         _str_path = rebuild_str_src_media_path(_str_raw_path)
@@ -182,6 +198,14 @@ def main(_dev_mode,_with_pad):
                                                                'thumbs',
                                                                _src_image,
                                                                '360','360')
+        if _with_cut is False:
+            _cmd_array_thumbs = make_str_list_cmd_resize_images_thumbs_nocut(
+                                                                _str_path,
+                                                                'thumbs',
+                                                                _src_image,
+                                                                '230')
+        else:
+            pass
         _num_total = len(_str_list_src_images)
         _num_do = _str_list_src_images.index(_src_image) + 1
         try:
@@ -223,4 +247,5 @@ def main(_dev_mode,_with_pad):
 if __name__ == '__main__':
     _dev_mode = False
     _with_pad = False
-    main(_dev_mode,_with_pad)
+    _with_cut = False
+    main(_dev_mode,_with_pad,_with_cut)
