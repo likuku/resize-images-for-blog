@@ -149,7 +149,7 @@ def check_bool_image_is_portrait(_path,_src_image):
         _bool = False
     return(_bool)
 
-def main(_dev_mode,_with_pad):
+def main(_dev_mode,_with_pad,_with_cut):
     _str_raw_path = get_str_raw_src_media_path_from_keyboard()
     if check_str_raw_src_media_path(_str_raw_path):
         _str_path = rebuild_str_src_media_path(_str_raw_path)
@@ -197,6 +197,14 @@ def main(_dev_mode,_with_pad):
                                                                'thumbs',
                                                                _src_image,
                                                                '360','360')
+        if _with_cut is False:
+            _cmd_array_thumbs = make_str_list_cmd_resize_images_thumbs_nocut(
+                                                                _str_path,
+                                                                'thumbs',
+                                                                _src_image,
+                                                                '230')
+        else:
+            pass
         _num_total = len(_str_list_src_images)
         _num_do = _str_list_src_images.index(_src_image) + 1
         try:
@@ -238,4 +246,5 @@ def main(_dev_mode,_with_pad):
 if __name__ == '__main__':
     _dev_mode = True
     _with_pad = False
-    main(_dev_mode,_with_pad)
+    _with_cut = False
+    main(_dev_mode,_with_pad,_with_cut)
