@@ -1,14 +1,25 @@
+'''
+Copy Right by likuku
+likuku.public@gmail.com
+last update on Jan2,2018
+先决条件:
+安装 python3
+'''
+
 import sys
 import os
 import subprocess
 import time
 
+print('需要 Python v3.x :')
+_msg = '''
+图片列表文件格式:
+一行一对前大图URL 后小图URL，之间用1空格分割，例如:
+http://wx1.sinaimg.cn/large/4d48a5a9.jpg http://wx1.sinaimg.cn/large/4d58b5b9.jpg
+http://wx1.sinaimg.cn/large/4d48a5b1.jpg http://wx1.sinaimg.cn/large/4d58b6b1.jpg
+http://wx1.sinaimg.cn/large/4d48a5c2.jpg http://wx1.sinaimg.cn/large/4d58b7c2.jpg
 '''
-<article class="item thumb" data-width="360">
-	<h2></h2>
-	<a href="http://wx4.sinaimg.cn/large/4d48a5a9gy1fmq52qkanbj20xc0kudm9.jpg" class="image"><img src="http://wx1.sinaimg.cn/large/4d48a5a9gy1fmq5kgvntsj20a00a0dgt.jpg" alt=""></a>
-</article>
-'''
+print(_msg)
 
 def get_str_raw_src_media_path_from_keyboard():
     _str_input_msg = '请输入图片列表文件路径 : '
@@ -61,19 +72,21 @@ def main(_dev_mode):
     _str_output_file = os.path.join(_str_list_url_img_base_path,'photos_html.txt')
     with open(_str_list_url_img_path, 'r') as _raw_list_file:
         with open(_str_output_file, 'wt') as _output_file:
-                for _line in _raw_list_file.readlines():
-                    _list_line = _line.strip().split(' ')
-                    _full_img_url = _list_line[0]
-                    _thumbs_img_url = _list_line[1]
-                    _width = get_str_pixel_width_image(_thumbs_img_url)
-                    _img_html = '<a href="{_full_img_url}" class="image"><img src="{_thumbs_img_url}" alt=""></a>'
-                    _img_html = _img_html.format_map(vars())
-                    _img_class = '<article class="item thumb" data-width="{_width}">'
-                    _img_class = _img_class.format_map(vars())
-                    print(_img_class, file = _output_file)
-                    print('<h2></h2>', file = _output_file)
-                    print(_img_html, file = _output_file)
-                    print('</article>', file = _output_file)
+            for _line in _raw_list_file.readlines():
+                _list_line = _line.strip().split(' ')
+                _full_img_url = _list_line[0]
+                _thumbs_img_url = _list_line[1]
+                _width = get_str_pixel_width_image(_thumbs_img_url)
+                _img_html = '<a href="{_full_img_url}" class="image"><img src="{_thumbs_img_url}" alt=""></a>'
+                _img_html = _img_html.format_map(vars())
+                _img_class = '<article class="item thumb" data-width="{_width}">'
+                _img_class = _img_class.format_map(vars())
+                print(_img_class, file = _output_file)
+                print('<h2></h2>', file = _output_file)
+                print(_img_html, file = _output_file)
+                print('</article>', file = _output_file)
+    print('Photos html code in %s' % _str_output_file)
+    print('Great! All Done')
 
 
 if __name__ == '__main__':
