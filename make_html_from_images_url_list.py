@@ -1,7 +1,7 @@
 '''
 Copy Right by likuku
 likuku.public@gmail.com
-last update on Jan2,2018
+last update on Jan5,2018
 先决条件:
 安装 python3
 '''
@@ -11,7 +11,7 @@ import os
 import subprocess
 import time
 
-print('版本: v20180102_1702')
+print('版本: v20180105_2137')
 print('需要 Python v3.x :')
 _msg = '''
 图片列表文件格式:
