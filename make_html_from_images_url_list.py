@@ -71,12 +71,20 @@ def main(_dev_mode):
     _str_list_url_img_base_path = _str_list_url_img_path.rsplit('/',1)[0]
     _str_output_file = os.path.join(_str_list_url_img_base_path,'photos_html.txt')
     with open(_str_list_url_img_path, 'r') as _raw_list_file:
+        _img_url_list = _raw_list_file.readlines()
+        _num_total = len(_img_url_list)
+        print(_num_total)
         with open(_str_output_file, 'wt') as _output_file:
-            for _line in _raw_list_file.readlines():
-                _list_line = _line.strip().split(' ')
-                _full_img_url = _list_line[0]
-                _thumbs_img_url = _list_line[1]
+            for _i in list(range(len(_img_url_list))):
+                _num_do = _i + 1
+                _str_progress = '[{_num_do}/{_num_total}] check photo,make html'
+                _str_progress = _str_progress.format_map(vars())
+                print(_str_progress,end='')
+                _img_url_list[_i] = _img_url_list[_i].strip().split(' ')
+                _full_img_url = _img_url_list[_i][0]
+                _thumbs_img_url = _img_url_list[_i][1]
                 _width = get_str_pixel_width_image(_thumbs_img_url)
+                print('...',end='')
                 _img_html = '<a href="{_full_img_url}" class="image"><img src="{_thumbs_img_url}" alt=""></a>'
                 _img_html = _img_html.format_map(vars())
                 _img_class = '<article class="item thumb" data-width="{_width}">'
@@ -85,6 +93,7 @@ def main(_dev_mode):
                 print('<h2></h2>', file = _output_file)
                 print(_img_html, file = _output_file)
                 print('</article>', file = _output_file)
+                print('Done')
     print('Photos html code in %s' % _str_output_file)
     print('Great! All Done')
 
