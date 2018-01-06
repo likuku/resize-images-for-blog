@@ -1,7 +1,7 @@
 '''
 Copy Right by likuku
 likuku.public@gmail.com
-last update on Jan5,2018
+last update on Jan6,2018
 先决条件:
 安装 python3
 '''
@@ -45,6 +45,7 @@ def get_str_pixel_width_image(_str_img_url):
     _tmp_img_path = os.path.join(_tmp_base,_img_name)
     _curl_get_cmd_array = ['curl','-s','-o',_tmp_img_path,_str_img_url]
     _get_pixel_width_cmd_array = ['sips',_tmp_img_path,'-g','pixelWidth']
+    _get_pixel_height_cmd_array = ['sips',_tmp_img_path,'-g','pixelHeight']
     try:
         _obj_cmd = subprocess.Popen(_curl_get_cmd_array,shell=False,stdout=subprocess.PIPE)
         _obj_cmd.wait()
@@ -53,8 +54,13 @@ def get_str_pixel_width_image(_str_img_url):
         _obj_cmd.wait()
         _out_bytes_in_w = _obj_cmd.stdout.read()
         _obj_cmd.stdout.close()
+        _obj_cmd = subprocess.Popen(_get_pixel_height_cmd_array,shell=False,stdout=subprocess.PIPE)
+        _obj_cmd.wait()
+        _out_bytes_in_h = _obj_cmd.stdout.read()
+        _obj_cmd.stdout.close()
         _int_w = int(_out_bytes_in_w.decode('utf-8').rsplit(' ',1)[1])
-        _str_w = str(_int_w)
+        _int_h = int(_out_bytes_in_h.decode('utf-8').rsplit(' ',1)[1])
+        _str_w = str(int(_int_w/_int_h * 230))
         os.remove(_tmp_img_path)
     except subprocess.CalledProcessError as e:
         print('[Error]: sips get pixel from image is crash.')
@@ -74,7 +80,6 @@ def main(_dev_mode):
     with open(_str_list_url_img_path, 'r') as _raw_list_file:
         _img_url_list = _raw_list_file.readlines()
         _num_total = len(_img_url_list)
-        print(_num_total)
         with open(_str_output_file, 'wt') as _output_file:
             for _i in list(range(len(_img_url_list))):
                 _num_do = _i + 1
