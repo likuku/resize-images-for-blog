@@ -11,7 +11,7 @@ import os
 import subprocess
 import time
 
-print('版本: v20180105_2137')
+print('版本: v20180106_1151')
 print('需要 Python v3.x :')
 _msg = '''
 图片列表文件格式:
